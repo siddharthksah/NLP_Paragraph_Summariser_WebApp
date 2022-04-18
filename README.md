@@ -3,10 +3,6 @@ A simple to no use no-fuss webapp to summarise your paragraphs. Think TL;DR.
 
 
 
-```
-User Interface
-```
-
 1. Create a Git Repo
 
 _Note: Heroku allows deployment using Git or Docker._
