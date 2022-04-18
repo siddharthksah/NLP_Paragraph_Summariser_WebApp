@@ -1,0 +1,4 @@
+streamlit
+sentencepiece
+torch
+transformers
