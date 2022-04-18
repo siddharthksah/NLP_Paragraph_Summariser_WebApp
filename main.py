@@ -33,6 +33,10 @@ st.markdown(
 
 text = st.text_area("Enter your paragraph here!")
 
+
+
 if st.button("Summarize"):
-    st.write(str(summarizer(text)[0]))
+    with st.spinner('Running the {} text summarization model...'.format('Pegasus')):
+        output = str(summarizer(text)[0])
+    st.success(output)
     st.balloons()
