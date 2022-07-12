@@ -1,4 +1,5 @@
 
+
 # NLP_Paragraph_Summariser_WebApp
 A simple to no use no-fuss webapp to summarise your paragraphs. Think TL;DR.
 
@@ -206,3 +207,87 @@ streamlit run main.py
 You will be able to see your app at the [External URL](http://107.22.27.124:8501/). The **_next step is to detach our TMUX session_** so that it continues running in the background when you leave the SSH shell. To do this just press `Ctrl+B and then D` (Don’t press Ctrl when pressing D).
 
 That's it, done!
+
+# Dockerize the webapp
+
+[Container on Docker Hub](https://hub.docker.com/repository/docker/siddharth123sk/deepsafe)
+
+```dockerfile
+#Base Image to use
+FROM python:3.7.9-slim
+
+#Expose port 8080
+EXPOSE 8080
+
+#Optional - install git to fetch packages directly from github
+RUN apt-get update && apt-get install -y git
+
+#Copy Requirements.txt file into app directory
+COPY requirements.txt app/requirements.txt
+
+#install all requirements in requirements.txt
+RUN pip install -r app/requirements.txt
+
+#Copy all files in current directory into app directory
+COPY . /app
+
+#Change Working Directory to app directory
+WORKDIR /app
+
+#Run the application on port 8080
+ENTRYPOINT ["streamlit", "run", "main.py", "--server.port=8080", "--server.address=0.0.0.0"]
+```
+
+Building the Docker Image
+```
+docker build -f Dockerfile -t app:latest .
+```
+Running the docker image and creating the container
+```
+docker run -p 8501:8501 app:latest
+```
+> You might need to use sudo before the docker commands if the user does not have admin privileges.
+----
+### Pushing the image to Docker Hub
+
+After you made your own Docker image, you can sign up for an account on https://hub.docker.com/. After verifying your email you are ready to go and upload your first docker image.
+
+1. Log in on https://hub.docker.com/
+2. Click on Create Repository.
+3. Choose a name (e.g. verse_gapminder) and a description for your repository and click Create.
+4. Log into the Docker Hub from the command line
+
+```bash
+docker login --username=yourhubusername --email=youremail@company.com
+```
+
+just with your own user name and email that you used for the account. Enter your password when prompted. If everything worked you will get a message similar to
+```
+WARNING: login credentials saved in /home/username/.docker/config.json
+Login Succeeded
+```
+Check the image ID using
+```
+docker images
+```
+and what you will see will be similar to
+
+```
+REPOSITORY              TAG       IMAGE ID         CREATED           SIZE
+verse_gapminder_gsl     latest    023ab91c6291     3 minutes ago     1.975 GB
+verse_gapminder         latest    bb38976d03cf     13 minutes ago    1.955 GB
+rocker/verse            latest    0168d115f220     3 days ago        1.954 GB
+```
+and tag your image
+```
+docker tag bb38976d03cf yourhubusername/verse_gapminder:firsttry
+```
+
+The number must match the image ID and :firsttry is the tag. In general, a good choice for a tag is something that will help you understand what this container should be used in conjunction with, or what it represents. If this container contains the analysis for a paper, consider using that paper’s DOI or journal-issued serial number; if it’s meant for use with a particular version of a code or data version control repo, that’s a good choice too - whatever will help you understand what this particular image is intended for.
+
+Push your image to the repository you created
+```bash
+docker push yourhubusername/verse_gapminder
+```
+----
+----
