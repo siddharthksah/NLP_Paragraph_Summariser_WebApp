@@ -1,7 +1,7 @@
 # NLP_Paragraph_Summariser_WebApp
 A simple to no use no-fuss webapp to summarise your paragraphs. Think TL;DR.
 
-Request live demo if tldr.loca.lt/ is down! I am cutting on some server cost, the slug size for this app > 1Gb.
+Request live demo if http://107.22.27.124:8501/ is down! I am cutting on some server cost, the slug size for this app > 1Gb.
 
 ![Demo](demo.gif)
 
