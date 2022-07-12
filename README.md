@@ -21,7 +21,7 @@ The code is in main.py
 3. Test your App (Local Environment)
 
 ```sh
-~$ streamlit run main.py
+streamlit run main.py
 ```
 
 4. Create your requeriments.txt file
