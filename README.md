@@ -183,6 +183,13 @@ pip install streamlit==0.65.2
 pip install torch==1.9.0
 pip install transformers==4.20.1
 ```
+
+> If torch installation gets stuck in the end use this command instead
+
+```
+pip install torch==1.9.0 --no-cache-dir
+```
+
 Getting a copy of app from GitHub
 ```bash
 git clone https://github.com/siddharthksah/NLP_Paragraph_Summariser_WebApp
